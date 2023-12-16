@@ -1,0 +1,98 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_WelcomeLayout";
+}
+
+
+
+<style>
+    *{
+        color: black;
+    }
+    header h1 {
+        color: #ffffff;
+    }
+
+    a:hover {
+        color: #1e7030;
+    }
+    section {
+        max-width: 800px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cancel
+     {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    .form-submit{
+        display: flex;
+    }
+    div button ,div .cancel {
+        width: 50%;
+        background-color: #28a745;
+        color: #ffffff;
+        cursor: pointer;
+    }
+    div .cancel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    div .cancel a {
+        color: white;
+        font: inherit;
+        width: 100%;
+        text-align: center;
+    }
+
+    .cancel:hover {
+        background-color: #1e7030;
+    }
+</style>
+
+
+<section id="signIn">
+    <h2>Login!</h2>
+    @if (TempData["Error"] != null)
+    {
+        <div class="col-md-12 alert alert-danger">
+            <span><b>Sorry!</b>- @TempData["Error"]</span>
+        </div>
+    }
+    <form asp-action="Login" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group">
+            <label asp-for="EmailAddress">Username</label>
+            <input asp-for="EmailAddress">
+            <span asp-validation-for="EmailAddress" ></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password">
+            <span asp-validation-for="Password"></span>
+        </div>
+
+
+        <div class="form-submit">
+        <button type="submit" >Login</button>
+        <div class="cancel"><a asp-controller="Welcome" asp-action="Index"> Cancel</a></div>
+
+        </div>
+
+        <p>Sign Up instead? <a asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a></p>
+    </form>
+</section>

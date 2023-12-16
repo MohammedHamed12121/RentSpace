@@ -1,0 +1,49 @@
+@model CreateAndEditSpaceViewModel
+
+<div class="container mt-5">
+    <form asp-controller="Space" asp-action="Edit" method="post">
+        <input type="hidden" value="Id" id="Id" name="Id">
+        <input type="hidden" value="AppUserId" id="AppUserId" name="AppUserId">
+        <div class="mb-3 form-group">
+            <label asp-for="Title" class="form-label">Title</label>
+            <input asp-for="Title" type="text" class="form-control" placeholder="Enter title">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="ShortDescription" class="form-label">ShortDescription</label>
+            <textarea asp-for="ShortDescription" class="form-control"  rows="3" placeholder="Enter a short description to display on the cart"></textarea>
+            <span asp-validation-for="ShortDescription" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control"  rows="3" placeholder="Enter description"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 form-group">
+            <label asp-for="Image" class="form-label">Image URL</label>
+            <input asp-for="Image" class="form-control"  placeholder="Enter image">
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="SpaceCategory" class="form-label">Space Category</label>
+            <select asp-for="SpaceCategory" asp-items="@Html.GetEnumSelectList<SpaceCategoryEnum>()" class="form-control">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+
+        <div class="mb-3 form-group">
+            <label asp-for="Country" class="form-label">Country:</label>
+            <input asp-for="Country" type="text" class="form-control" placeholder="Enter street" >
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="State" class="form-label">State:</label>
+            <input asp-for="State" type="text" class="form-control" placeholder="Enter street" >
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="City" class="form-label">City:</label>
+            <input asp-for="City" type="text" class="form-control" placeholder="Enter city" >
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>

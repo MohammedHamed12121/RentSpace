@@ -1,0 +1,100 @@
+@{
+    Layout = "_WelcomeLayout";
+}
+
+<style>
+
+    section{
+        color: black;
+        margin: 30px;
+        font-size: 1.5rem;
+        background-color: rgba(255, 255, 255, .85);
+    }
+    .signupnow{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .signupnow ul{
+        padding-left: 30px;
+    }
+
+    .signupnow span{
+        margin-right: 90px;
+        padding: 30px;
+        background-color: #28a745;
+        border-radius: 3px;
+
+    }
+    .signupnow span a{
+        color: white;
+    }
+    .signupnow span:hover {
+        background-color: #1e7030;
+    }
+</style>
+
+
+<!-- Welcome Page -->
+@* <div class="container"> *@
+
+    @* <div class="row"> *@
+        @* <section id="home"> *@
+<div>
+
+        <section>
+            <h1>Welcome to RentSpace - Your Ultimate Property Marketplace</h1>
+            <p>
+                <strong>Rent or Sell Your Property Hassle-Free!</strong><br>
+                Explore a seamless experience of renting or selling your house,land, or space with RentSpace. <br>
+                Whether it's for a few hours, months, or even a year, we've got you covered.
+            </p>
+            <div class="signupnow">
+            <ul>
+                <li>Flexible Rental Options</li>
+                <li>Easy and Secure Transactions</li>
+                <li>Wide Range of Properties</li>
+                <li>User-Friendly Platform</li>
+            </ul>
+            <span>
+                <a asp-area="" asp-controller="Account" asp-action="Register" >
+
+                SIGN UP NOW
+                </a>
+            </span>
+
+            </div>
+        </section>
+    @* </div> *@
+    @* <div class="row"> *@
+
+        <!-- Card for the Service -->
+        <section >
+            <h2>Rent or Sell Your Property with Ease!</h2>
+            <ul>
+                <li>🏡 Flexible Options: Rent by hours, months, or even a year.</li>
+                <li>💼 Sell Your Property: Find the perfect buyer for your space.</li>
+                <li>🌐 Explore a Wide Range: From cozy homes to spacious lands.</li>
+            </ul>
+        </section>
+
+        <!-- About Us -->
+        <section>
+            <h2>About RentSpace</h2>
+            <p>
+                At RentSpace, we understand that finding the right place or selling your property can be a significant
+                decision.
+                Our mission is to simplify this process, making it easy and efficient for property owners and renters
+                alike.
+            </p>
+            <ul>
+                <li><strong>Flexibility:</strong> Rent or sell on your terms - by hours, months, or a year.</li>
+                <li><strong>Diverse Listings:</strong> From cozy apartments to vast lands, find the perfect match.</li>
+                <li><strong>Security:</strong> Our platform ensures secure transactions for peace of mind.</li>
+                <li><strong>User-Friendly:</strong> Navigate our platform with ease, making the process hassle-free.
+                </li>
+            </ul>
+        </section>
+    @* </div> *@
+@* </div> *@
+</div>

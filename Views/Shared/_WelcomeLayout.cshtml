@@ -1,0 +1,176 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to RentSpace</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            @* position: absolute; *@
+            width: 100%;
+            @* background-color: #28a745;
+            padding: 5px 0;
+            text-align: center; *@
+            background-color: #28a745;
+            display: flex ;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            color: #ffffff;
+            padding-left: 30px;
+        }
+        
+        header div a {
+            color: white;
+            padding-right: 20px;
+        }
+
+        @* nav {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #28a745;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        } *@
+
+        section {
+            @* max-width: 800px; *@
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #28a745;
+        }
+
+        a {
+            color: #28a745;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #1e7030;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1e7030;
+        }
+
+        p {
+            @* font-size: 14px; *@
+            color: black;
+        }
+
+        p a {
+            font-weight: bold;
+        }
+        #home{
+        color: white;
+        padding: 20px;
+
+        background-image: url("images/pexels-pixabay-53610.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        
+    }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<header>
+    <div>
+    <a asp-area="" asp-controller="Welcome" asp-action="Index">
+    <h1>RentSpace</h1>
+    </a>
+    </div>
+
+@* -----------------------habd *@
+    <div>
+    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    <a asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a>
+    <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+</div>
+@* -----------------------habd *@
+</header>
+
+@* <nav>
+    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    <a asp-area="" asp-controller="Welcome" asp-action="Index">Services</a>
+    <a asp-area="" asp-controller="Welcome" asp-action="Index">About Us</a>
+    <a asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a>
+    <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+</nav> *@
+
+
+
+<div id="home">
+    @RenderBody()
+</div>
+
+
+
+
+
+</body>
+</html>

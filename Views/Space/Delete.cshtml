@@ -1,0 +1,16 @@
+@model Space
+
+@* TODO: make it as pop up not a full page *@
+<div class="container mt-5">
+    <h3>Are You Sure You Want To Delete This Space
+    </h3>
+   
+
+    <div class="form-group">
+
+        <form asp-action="DeleteSpace" method="post">
+            <input type="hidden" asp-for="Id">
+            <input type="submit" value="confirm" class="btn btn-danger float-right">
+        </form>
+    </div>
+</div>
