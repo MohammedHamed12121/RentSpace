@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RentSpace.Extensions;
+using RentSpace.Helpers;
 using RentSpace.Interfaces;
 using RentSpace.Models;
 using RentSpace.ViewModels;
@@ -30,10 +31,24 @@ namespace RentSpace.Controllers
         #endregion
 
         #region Index
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pg=1)
         {
             // get all spaces
-            IEnumerable<Space> spaces = await _spaceRepo.GetAllSpaceAsync();
+            IEnumerable<Space> allSpaces = await _spaceRepo.GetAllSpaceAsync();
+            // apply paginations
+            // TODO: Move the pageination into its own service and injected in the spaces repository
+            // make sure page always begin from 1 not smaller 
+            const int pageSize = 3;
+            if(pg < 1)
+            {
+                pg = 1;
+            }
+            
+            int recsCount = allSpaces.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg-1) * pageSize;
+            var  spaces = allSpaces.Skip(recSkip).Take(pager.PageSize).ToList();
+            ViewBag.pager = pager;
             // make a view model for spaces 
             var spacesVM = new List<SpaceCardViewModel>() { };
             foreach (var space in spaces)

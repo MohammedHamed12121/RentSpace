@@ -1,7 +1,16 @@
 @model IEnumerable<SpaceCardViewModel> 
 
 @{
+    ViewData["Title"] = "Spaces";
 
+    Pager pager = new Pager();
+    int pageNO = 0;
+    if(ViewBag.Pager is not null)
+    {
+        pager = ViewBag.Pager;
+        pageNO = pager.CurrentPage;
+    }
+    
 }
 
 
@@ -43,3 +52,5 @@
         </div>
     </div>
 </div>
+
+<partial name="_PagerPartial" model="@pager" />
