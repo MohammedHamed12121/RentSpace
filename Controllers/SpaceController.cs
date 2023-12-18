@@ -31,10 +31,10 @@ namespace RentSpace.Controllers
         #endregion
 
         #region Index
-        public async Task<IActionResult> Index(int pg=1)
+        public async Task<IActionResult> Index(int pg=1, string search="")
         {
             // get all spaces
-            IEnumerable<Space> allSpaces = await _spaceRepo.GetAllSpaceAsync();
+            IEnumerable<Space> allSpaces = await _spaceRepo.GetAllSpaceAsync(search);
             // apply paginations
             // TODO: Move the pageination into its own service and injected in the spaces repository
             // make sure page always begin from 1 not smaller 

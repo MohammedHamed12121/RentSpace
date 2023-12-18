@@ -31,9 +31,18 @@ namespace RentSpace.Repositories
             return Save();
         }
 
-        public async Task<IEnumerable<Space>> GetAllSpaceAsync()
+        public async Task<IEnumerable<Space>> GetAllSpaceAsync(string search)
         {
-            return await _context.Spaces.ToListAsync();
+            if(!string.IsNullOrEmpty(search))
+            {
+                return await _context.Spaces
+                        .Where(s => s.Title.Contains(search!) || s.Description.Contains(search!) || s.ShortDescription.Contains(search!))
+                        .ToListAsync();
+            }
+            else
+            {
+                return await _context.Spaces.ToListAsync();
+            }
         }
 
         public async Task<IEnumerable<Space>> GetSpaceByCityAsync(string city)

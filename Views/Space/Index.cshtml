@@ -13,7 +13,18 @@
     
 }
 
-
+<div style="display: flex; width:100%; justify-content:space-between;">
+<form asp-action="Index" method="get">
+    <label for="search">Search:</label>
+    <input type="text" name="search" />
+    <button type="submit">Search</button>
+</form>
+<div>
+    total items : @pager.TotalItems
+    number of items on the page : @pager.PageSize
+    page number : @pager.CurrentPage
+</div>
+</div>
 <div class="album py-5 bg-light">
     <div class="container">
 
