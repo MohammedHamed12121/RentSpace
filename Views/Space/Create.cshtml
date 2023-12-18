@@ -26,6 +26,11 @@
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
         <div class="mb-3 form-group">
+            <label asp-for="InitialPrice" class="form-label">Your Initial Price</label>
+            <input asp-for="InitialPrice" class="form-control"  placeholder="Enter Your Initial Price">
+            <span asp-validation-for="InitialPrice" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-group">
             <label asp-for="SpaceCategory" class="form-label">Space Category</label>
             <select asp-for="SpaceCategory" asp-items="@Html.GetEnumSelectList<SpaceCategoryEnum>()" class="form-control">
                 <option value="">--Select--</option>

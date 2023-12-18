@@ -17,7 +17,7 @@ namespace RentSpace.Repositories
         public SpaceRepository(ApplicationDbContext context)
         {
             _context = context;
-            
+
         }
         public bool Add(Space space)
         {
@@ -31,18 +31,30 @@ namespace RentSpace.Repositories
             return Save();
         }
 
-        public async Task<IEnumerable<Space>> GetAllSpaceAsync(string search)
+        public async Task<IEnumerable<Space>> GetAllSpaceAsync(string search, decimal? minPrice, decimal? maxPrice)
         {
-            if(!string.IsNullOrEmpty(search))
+            IEnumerable<Space> results;
+            if (!string.IsNullOrEmpty(search))
             {
-                return await _context.Spaces
+                results = await _context.Spaces
                         .Where(s => s.Title.Contains(search!) || s.Description.Contains(search!) || s.ShortDescription.Contains(search!))
                         .ToListAsync();
             }
             else
             {
-                return await _context.Spaces.ToListAsync();
+                results =  await _context.Spaces.ToListAsync();
             }
+
+            if (minPrice.HasValue)
+            {
+                results = results.Where(item => item.InitialPrice >= minPrice.Value).ToList();
+            }
+
+            if (maxPrice.HasValue)
+            {
+                results = results.Where(item => item.InitialPrice <= maxPrice.Value).ToList();
+            }
+            return results;
         }
 
         public async Task<IEnumerable<Space>> GetSpaceByCityAsync(string city)
@@ -62,7 +74,7 @@ namespace RentSpace.Repositories
 
         public async Task<string> GetSpaceUserNameAsync(string id)
         {
-            var space =  await _context.Spaces.Include(s => s.AppUser).FirstOrDefaultAsync(s => s.AppUserId == id);
+            var space = await _context.Spaces.Include(s => s.AppUser).FirstOrDefaultAsync(s => s.AppUserId == id);
             return space.AppUser.UserName.ToString();
         }
 

@@ -31,10 +31,10 @@ namespace RentSpace.Controllers
         #endregion
 
         #region Index
-        public async Task<IActionResult> Index(int pg=1, string search="")
+        public async Task<IActionResult> Index( decimal? minPrice, decimal? maxPrice, int pg=1, string search="")
         {
             // get all spaces
-            IEnumerable<Space> allSpaces = await _spaceRepo.GetAllSpaceAsync(search);
+            IEnumerable<Space> allSpaces = await _spaceRepo.GetAllSpaceAsync(search, minPrice, maxPrice);
             // apply paginations
             // TODO: Move the pageination into its own service and injected in the spaces repository
             // make sure page always begin from 1 not smaller 
@@ -99,16 +99,17 @@ namespace RentSpace.Controllers
             // get the new space 
             var newSpace = new Space
             {
-                AppUserId = space.AppUserId,
-                Title = space.Title,
-                ShortDescription = space.ShortDescription,
-                Description = space.Description,
-                Image = space.Image,
-                SpaceCategory = space.SpaceCategory,
-                Country = space.Country,
-                City = space.City,
-                State = space.State,
-                CreateAt = new DateTime()
+                AppUserId                       = space.AppUserId,
+                Title                           = space.Title,
+                ShortDescription                = space.ShortDescription,
+                Description                     = space.Description,
+                Image                           = space.Image,
+                InitialPrice                    = space.InitialPrice,
+                SpaceCategory                   = space.SpaceCategory,
+                Country                         = space.Country,
+                City                            = space.City,
+                State                           = space.State,
+                CreateAt                        = new DateTime()
             };
             // add it the database
             _spaceRepo.Add(newSpace);
@@ -130,16 +131,16 @@ namespace RentSpace.Controllers
             // get the old space data
             var spaceVM = new CreateAndEditSpaceViewModel
             {
-                AppUserId = space.AppUserId,
-                Title = space.Title,
-                ShortDescription = space.ShortDescription,
-                Description = space.Description,
-                Image = space.Image,
-                SpaceCategory = space.SpaceCategory,
-                Country = space.Country,
-                City = space.City,
-                State = space.State,
-                CreateAt = new DateTime()
+                Id                      = id,
+                AppUserId               = space.AppUserId,
+                Title                   = space.Title,
+                ShortDescription        = space.ShortDescription,
+                Description             = space.Description,
+                Image                   = space.Image,
+                SpaceCategory           = space.SpaceCategory,
+                Country                 = space.Country,
+                City                    = space.City,
+                State                   = space.State,
             };
             // return it with the view
             return View(spaceVM);
@@ -167,6 +168,7 @@ namespace RentSpace.Controllers
                     ShortDescription    = spaceViewModel.ShortDescription,
                     Description         = spaceViewModel.Description,
                     Image               = spaceViewModel.Image,
+                    InitialPrice        = spaceViewModel.InitialPrice,
                     SpaceCategory       = spaceViewModel.SpaceCategory,
                     Country             = spaceViewModel.Country,
                     City                = spaceViewModel.City,

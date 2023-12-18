@@ -8,7 +8,7 @@ namespace RentSpace.Interfaces
 {
     public interface ISpaceRepository
     {
-        Task<IEnumerable<Space>> GetAllSpaceAsync(string search);
+        Task<IEnumerable<Space>> GetAllSpaceAsync(string search, decimal? minPrice, decimal? maxPrice);
         Task<Space?> GetSpaceByIdAsync(int id);
         Task<Space?> GetSpaceByIdAsyncWithNoTracking(int id);
         Task<IEnumerable<Space>> GetSpaceByCityAsync(string city);

@@ -1,58 +1,71 @@
-@model IEnumerable<SpaceCardViewModel> 
+@model IEnumerable<SpaceCardViewModel>
 
 @{
     ViewData["Title"] = "Spaces";
 
     Pager pager = new Pager();
     int pageNO = 0;
-    if(ViewBag.Pager is not null)
+    if (ViewBag.Pager is not null)
     {
         pager = ViewBag.Pager;
         pageNO = pager.CurrentPage;
     }
-    
+
 }
 
+@* Search form *@
+
 <div style="display: flex; width:100%; justify-content:space-between;">
-<form asp-action="Index" method="get">
-    <label for="search">Search:</label>
-    <input type="text" name="search" />
-    <button type="submit">Search</button>
+    <form asp-action="Index" method="get">
+        <label for="search">Search:</label>
+        <input type="text" name="search" />
+        <button type="submit">Search</button>
+    </form>
+
+
+    <div>
+        total items : @pager.TotalItems
+        number of items on the page : @pager.PageSize
+        page number : @pager.CurrentPage
+    </div>
+</div>
+
+
+@* Fitter by Price form *@
+<form action="@Url.Action("Index")" method="get">
+    <label for="minPrice">Min Price:</label>
+    <input type="number" name="minPrice" step="0.01" />
+
+    <label for="maxPrice">Max Price:</label>
+    <input type="number" name="maxPrice" step="0.01" />
+
+    <button type="submit">Filter</button>
 </form>
-<div>
-    total items : @pager.TotalItems
-    number of items on the page : @pager.PageSize
-    page number : @pager.CurrentPage
-</div>
-</div>
+
 <div class="album py-5 bg-light">
     <div class="container">
 
         <div class="row">
 
-            @foreach(var space in Model)
+            @foreach (var space in Model)
             {
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
-                        <img class="card-img-top"
-                            src="@space.space.Image"
-                            alt="Card image cap"
-                            width="100%"
-                            height="225">
+                        <img class="card-img-top" src="@space.space.Image" alt="Card image cap" width="100%" height="225">
                         <div class="card-body">
                             <p class="card-text">@space.space.Title</p>
                             <p class="card-text">@space.PostUserName</p>
                             <p class="card-text">@space.space.Description</p>
+                            <p class="card-text">@space.space.InitialPrice</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a asp-controller="Space" asp-action="Details" asp-route-id="@space.space.Id" class="btn btn-sm btn-outline-secondary">View</a>
-                                    @* @if(User.Identity.IsAuthenticated && User.IsInRole("admin"))
-                                    {
-                                        <a asp-controller="Club" asp-action="Edit" asp-route-id="@club.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                        <a asp-controller="Club" asp-action="Delete" asp-route-id="@club.Id" class="btn btn-sm btn-outline-secondary">Delete</a>
-                                    } *@  
-                                    <a asp-controller="Space" asp-action="Edit" asp-route-id="@space.space.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                        <a asp-controller="Space" asp-action="Delete" asp-route-id="@space.space.Id" class="btn btn-sm btn-outline-secondary">Delete</a>
+                                    <a asp-controller="Space" asp-action="Details" asp-route-id="@space.space.Id"
+                                        class="btn btn-sm btn-outline-secondary">View</a>
+                                    
+                                    <a asp-controller="Space" asp-action="Edit" asp-route-id="@space.space.Id"
+                                        class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    <a asp-controller="Space" asp-action="Delete" asp-route-id="@space.space.Id"
+                                        class="btn btn-sm btn-outline-secondary">Delete</a>
                                 </div>
                                 <small class="text-muted">@space.space.SpaceCategory</small>
                             </div>

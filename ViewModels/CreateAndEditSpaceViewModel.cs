@@ -16,7 +16,7 @@ namespace RentSpace.ViewModels
         public string? ShortDescription { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
-        public DateTime? CreateAt { get; set; }
+        public decimal InitialPrice {get; set;}
         public string? City { get; set; }
         public string? State { get; set; }
         public string? Country { get; set; }
