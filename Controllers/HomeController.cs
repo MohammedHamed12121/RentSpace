@@ -5,7 +5,6 @@ using RentSpace.Models;
 
 namespace RentSpace.Controllers;
 
-[Authorize]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;

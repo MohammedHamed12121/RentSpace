@@ -7,18 +7,32 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RentSpace.styles.css" asp-append-version="true" />
+    <style>
+        *{
+            color: #1e7030;
+            @* color: white; *@
+            @* -webkit-text-stroke: black 0.5px; *@
+        }
+        body{
+            @* background-color: #1e7030 ; *@
+            @* background-image: url("images/pexels-pixabay-164558.jpg"); *@
+            @* background-repeat: no-repeat; *@
+            @* background-size: cover; *@
+          
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RentSpace</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Welcome" asp-action="Index">RentSpace</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 justify-content-center" >
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -27,13 +41,17 @@
                         </li>
                         <li class="nav-item">
                         </li> 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">@User.Identity!.Name</a>
-                        </li> 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                        </li> 
-                        
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">@User.Identity!.Name</a>
+                            </li> 
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li> 
+                        }
                     </ul>
                 </div>
             </div>

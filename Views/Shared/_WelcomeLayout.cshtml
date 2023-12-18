@@ -148,8 +148,11 @@
 @* -----------------------habd *@
     <div>
     <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    <a asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a>
-    <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+    @if(!User.Identity.IsAuthenticated)
+    {
+        <a asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a>
+        <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+    }
 </div>
 @* -----------------------habd *@
 </header>

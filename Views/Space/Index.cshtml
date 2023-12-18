@@ -50,6 +50,13 @@
             @foreach (var space in Model)
             {
                 <div class="col-md-4">
+                    <a 
+                        asp-controller="Space" 
+                        asp-action="Details" 
+                        asp-route-id="@space.space.Id"
+                        style="text-decoration: none;"
+
+                    >
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top" src="@space.space.Image" alt="Card image cap" width="100%" height="225">
                         <div class="card-body">
@@ -59,18 +66,21 @@
                             <p class="card-text">@space.space.InitialPrice</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a asp-controller="Space" asp-action="Details" asp-route-id="@space.space.Id"
-                                        class="btn btn-sm btn-outline-secondary">View</a>
-                                    
-                                    <a asp-controller="Space" asp-action="Edit" asp-route-id="@space.space.Id"
+                                    @* <a asp-controller="Space" asp-action="Details" asp-route-id="@space.space.Id" *@
+                                        @* class="btn btn-sm btn-outline-secondary">View</a> *@
+                                    @if (space.space.AppUserId == User.GetUserId())
+                                    {
+                                        <a asp-controller="Space" asp-action="Edit" asp-route-id="@space.space.Id"
                                         class="btn btn-sm btn-outline-secondary">Edit</a>
-                                    <a asp-controller="Space" asp-action="Delete" asp-route-id="@space.space.Id"
+                                        <a asp-controller="Space" asp-action="Delete" asp-route-id="@space.space.Id"
                                         class="btn btn-sm btn-outline-secondary">Delete</a>
+                                    }
+                                    
                                 </div>
                                 <small class="text-muted">@space.space.SpaceCategory</small>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
             }
         </div>
