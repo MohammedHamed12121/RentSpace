@@ -10,7 +10,6 @@
         pager = ViewBag.Pager;
         pageNO = pager.CurrentPage;
     }
-
 }
 
 @* Search form *@
@@ -29,6 +28,7 @@
         page number : @pager.CurrentPage
     </div>
 </div>
+
 
 
 @* Fitter by Price form *@
@@ -88,3 +88,8 @@
 </div>
 
 <partial name="_PagerPartial" model="@pager" />
+
+
+
+
+

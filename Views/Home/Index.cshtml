@@ -7,20 +7,22 @@
     {
         <h1 class="display-4">Welcome</h1>
         <p>To <strong>
-            <a asp-area="" asp-controller="Welcome" asp-action="Index">
+            <a asp-area="" asp-controller="Welcome" asp-action="Index"
+                class="btn btn-success"
+            >
             RentSpace
             </a> </strong>
         </p>
         <p>Your way to buy and find place where ever you are</p>
         <p>You need to Login in to user our service</p>
-        <a asp-area="" asp-controller="Account" asp-action="Login">Login Now</a>
+        <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-success">Login Now</a>
     }
     else
     {
         <h1>
             Welcome to <strong>RentSpace</strong>
         </h1>
-        <p>You can Find Places <a asp-area="" asp-controller="Space" asp-action="Index">Here</a></p>
-        <p>Or <a asp-area="" asp-controller="Space" asp-action="Create"> publish a place instead</a></p>
+        <p>You can Find Places <a asp-area="" asp-controller="Space" asp-action="Index" class="btn btn-success">Here</a></p>
+        <p>Or <a asp-area="" asp-controller="Space" asp-action="Create" class="btn btn-success"> publish a place instead</a></p>
     }
 </div>

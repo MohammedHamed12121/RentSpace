@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,61 +8,105 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RentSpace.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+
     <style>
-        *{
+        * {
             color: #1e7030;
-            @* color: white; *@
-            @* -webkit-text-stroke: black 0.5px; *@
         }
-        body{
-            @* background-color: #1e7030 ; *@
-            @* background-image: url("images/pexels-pixabay-164558.jpg"); *@
-            @* background-repeat: no-repeat; *@
-            @* background-size: cover; *@
-          
+
+        .custom-toastr {
+            color: black; /* Set your desired font color */
         }
+        
     </style>
+
 </head>
+@{
+    var toastrMessageJson = TempData["ToastrMessage"] as string;
+    var toastrMessage = !string.IsNullOrEmpty(toastrMessageJson)
+    ? JsonConvert.DeserializeObject<ToastrMessage>(toastrMessageJson)
+    : null;
+}
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Welcome" asp-action="Index">RentSpace</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1 justify-content-center" >
+                    <ul class="navbar-nav flex-grow-1 justify-content-center">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Space" asp-action="Index">Spaces</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Space"
+                                asp-action="Index">Spaces</a>
                         </li>
                         <li class="nav-item">
-                        </li> 
+                        </li>
                     </ul>
                     <ul class="navbar-nav">
-                        @if(User.Identity.IsAuthenticated)
+                        @if (User.Identity!.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">@User.Identity!.Name</a>
-                            </li> 
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile"
+                                    asp-action="Index">@User.Identity!.Name</a>
+                            </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                            </li> 
+                                @* <a class="nav-link text-dark" asp-area="" asp-controller="Account"
+                            asp-action="Logout">Logout</a> *@
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#myModal">Logout</button>
+                            </li>
                         }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+    @* logout pop model *@
+    <div class="modal" id="myModal">
+        <form asp-controller="Account" asp-action="Logout" method="get">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Logout</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <p>You really want to logout</p>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Logout</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    @* *@
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+
+    
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -69,8 +114,31 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @* toastr *@
+    @if (toastrMessage != null)
+    {
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                @* "progressBar": true, *@
+                "positionClass": "toast-top-right",
+                "timeOut": "2000",
+                "containerId": "toast-container",
+                "style": "custom-toastr"
+            };
+
+            toastr.success('@toastrMessage.Message', 'Success');
+        </script>
+    }
+
+    <script>
+        @* toastr.success('hello', 'Success'); *@
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
