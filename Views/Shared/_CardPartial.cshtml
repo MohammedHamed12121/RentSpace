@@ -1,0 +1,91 @@
+@model Space
+
+<style>
+    .allcard {
+        position: relative;
+    }
+
+    .menuButton {
+        position: absolute;
+        width: 25px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 4%;
+        right: 7%;
+        border-radius: 50%;
+    }
+
+    .menuButton:hover {
+        cursor: pointer;
+    }
+
+    .menu {
+        display: none;
+        position: absolute;
+        top: 12%;
+        right: 7%;
+        background-color: #f9f9f9;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .menu a:hover {
+        background-color: #ddd;
+    }
+</style>
+
+<div class="col-md-4 allcard">
+    <a asp-controller="Space" asp-action="Details" asp-route-id="@Model.Id" style="text-decoration: none;">
+        <div class="card mb-4 box-shadow">
+            <img class="card-img-top" src="@Model.Image" alt="Card image cap" width="100%" height="225">
+            <div class="card-body">
+                <p class="card-text">@Model.Title</p>
+                @* <p class="card-text">@Model.PostUserName</p> *@
+                <p class="card-text">@Model.Description</p>
+                <p class="card-text">@Model.InitialPrice</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">@Model.SpaceCategory</small>
+                </div>
+            </div>
+        </div>
+    </a>
+    <div>
+
+        @* Menu *@
+        <button class="menuButton" data-menu="menu-@Model.Id">
+            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+        </button>
+        <div id="menu-@Model.Id" class="menu">
+            @if (Model.AppUserId == User.GetUserId())
+            {
+                <a asp-controller="Space" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a asp-controller="Space" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            }
+            <a asp-controller="Space" asp-action="Details" asp-route-id="@Model.Id">View</a>
+        </div>
+
+
+
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        // Attach a click event to all elements with the class "menu-button"
+        $(".menuButton").click(function () {
+            // Get the data-menu attribute value
+            var menuId = $(this).data("menu");
+            // Toggle the visibility of the corresponding menu using jQuery
+            $("#" + menuId).toggle();
+        });
+    });
+</script>

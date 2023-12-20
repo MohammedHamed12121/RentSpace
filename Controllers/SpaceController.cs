@@ -58,7 +58,6 @@ namespace RentSpace.Controllers
                 var spaceVM = new SpaceCardViewModel()
                 {
                     space = space,
-                    PostUserName = _spaceRepo.GetSpaceUserNameAsync(space.AppUserId).Result
                 };
                 spacesVM.Add(spaceVM);
             }

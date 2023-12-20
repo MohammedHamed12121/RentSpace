@@ -64,7 +64,7 @@ namespace RentSpace.Repositories
 
         public async Task<Space?> GetSpaceByIdAsync(int id)
         {
-            return await _context.Spaces.FirstOrDefaultAsync(r => r.Id == id);
+            return await _context.Spaces.Include(s => s.AppUser).FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<Space?> GetSpaceByIdAsyncWithNoTracking(int id)

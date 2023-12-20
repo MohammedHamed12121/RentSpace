@@ -8,7 +8,6 @@ namespace RentSpace.ViewModels
 {
     public class SpaceCardViewModel
     {
-        public Space space { get; set; }
-        public string PostUserName { get; set; }
+        public Space? space { get; set; }
     }
 }
