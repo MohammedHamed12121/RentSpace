@@ -22,10 +22,9 @@ namespace RentSpace.Repositories
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<Space>> GetAllUserSpaces()
+        public async Task<List<Space>> GetAllUserSpaces(string id)
         {
-            var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var userSpacess = _context.Spaces.Where(r => r.AppUserId == curUser);
+            var userSpacess = _context.Spaces.Where(r => r.AppUserId == id);
             return await userSpacess.ToListAsync();
         }
 

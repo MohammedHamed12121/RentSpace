@@ -3,8 +3,8 @@
 <div class="container">
   
     <h1 class="my-3">@Model.Title</h1>
-    @* TODO: dispaly the name of the user here this is wrong  *@
-    <h4>By <a >@Model.AppUser.UserName </a></h4>
+
+    <h4>By <a asp-area="" asp-controller="UserProfile" asp-action="Index"asp-route-id="@Model.AppUserId">@Model.AppUser.UserName </a></h4>
 
   <div class="row">
     <div class="col-md-8">

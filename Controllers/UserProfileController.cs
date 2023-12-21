@@ -34,12 +34,12 @@ namespace RentSpace.Controllers
         #endregion
 
         #region Index
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string id)
         {
             // get user spaces
-            var userSpaces = await _profileRepo.GetAllUserSpaces();
-            var curUserId = _httpContextAccessor.HttpContext!.User.GetUserId();
-            var curUser = await _userRepo.GetUserByIdAsync(curUserId);
+            // var curUserId = _httpContextAccessor.HttpContext!.User.GetUserId();
+            var userSpaces = await _profileRepo.GetAllUserSpaces(id);
+            var curUser = await _userRepo.GetUserByIdAsync(id);
             // add them to a view model
             var profileVM = new ProfileViewModel()
             {
@@ -54,6 +54,22 @@ namespace RentSpace.Controllers
         }
         #endregion
 
+        #region GetUserById
+        // public async Task<IActionResult> GetUserById(string id)
+        // {
+        //     var userSpaces = await _profileRepo.GetAllUserSpaces(id);
+        //     var user = await _userRepo.GetUserByIdAsync(id);
+        //     var profileVM = new ProfileViewModel()
+        //     {
+        //         State = user.State,
+        //         City = user.City,
+        //         Country = user.Country,
+        //         Space = userSpaces
+        //     };
+        //     return View(profileVM);
+
+        // }
+        #endregion
         #region Edit
         public async Task<IActionResult> EditUserProfile()
         {

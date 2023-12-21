@@ -199,19 +199,6 @@ namespace RentSpace.Controllers
         #endregion
 
         #region Delete
-        public async Task<IActionResult> Delete(int id)
-        {
-            // get the space 
-            var spaceDetails = await _spaceRepo.GetSpaceByIdAsync(id);
-            // check if it's exist
-            if (spaceDetails == null)
-            {
-                return View("Error");
-            }
-            // return view
-            return View(spaceDetails);
-        }
-
         [HttpPost, ActionName("DeleteSpace")]
         public async Task<IActionResult> DeleteSpace(int id)
         {

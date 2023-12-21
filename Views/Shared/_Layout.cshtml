@@ -19,7 +19,7 @@
         }
 
         .custom-toastr {
-            color: black; /* Set your desired font color */
+            color: black;
         }
         
     </style>
@@ -58,11 +58,9 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile"
-                                    asp-action="Index">@User.Identity!.Name</a>
+                                    asp-action="Index" asp-route-id="@User.GetUserId()  ">@User.Identity!.Name</a>
                             </li>
                             <li class="nav-item">
-                                @* <a class="nav-link text-dark" asp-area="" asp-controller="Account"
-                            asp-action="Logout">Logout</a> *@
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#myModal">Logout</button>
                             </li>

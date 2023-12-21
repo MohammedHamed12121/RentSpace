@@ -3,12 +3,12 @@
 }
 
 <div class="text-center">
-    @if(!User.Identity.IsAuthenticated)
+    @if(!User.Identity!.IsAuthenticated)
     {
         <h1 class="display-4">Welcome</h1>
         <p>To <strong>
             <a asp-area="" asp-controller="Welcome" asp-action="Index"
-                class="btn btn-success"
+                style="font-size:5rem;"
             >
             RentSpace
             </a> </strong>
@@ -16,6 +16,8 @@
         <p>Your way to buy and find place where ever you are</p>
         <p>You need to Login in to user our service</p>
         <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-success">Login Now</a>
+        <p>Or you can Register to our services</p>
+        <a asp-area="" asp-controller="Account" asp-action="Register" class="btn btn-success">Register Now</a>
     }
     else
     {
