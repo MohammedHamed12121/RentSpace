@@ -10,6 +10,5 @@ namespace RentSpace.Models
     {
         public string? Message { get; set; }
         public ToastrMessageType Type { get; set; }
-        // public string? Title { get; set; }
     }
 }

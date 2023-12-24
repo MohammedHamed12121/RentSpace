@@ -1,0 +1,101 @@
+@model ChatViewModel
+@* @inject UserManager<IdentityUser> UserManager *@
+
+@* @{
+    async Task<string> getUserNameFromId(string id)
+    {
+        IdentityUser user = await UserManager.FindByIdAsync(id);
+        string? username = user!.UserName ?? user!.Email;
+        return username;
+    }
+} *@
+
+<h1>this is a private chat between</h1>
+<p>
+    @* get the current user name *@
+    @User.Identity!.Name
+
+    ------>>>
+
+    @* get the reciever name *@
+    @Model.User.Email
+</p>
+
+@* form to send messeges *@
+@* TODO: replace this with ajax *@
+<form asp-controller="Chat" asp-action="PrivateChat" method="Post">
+    <input type="hidden" id="ReceiverId" name="ReceiverId" asp-for="Reciever" value="@Model.Reciever" />
+    <input asp-for="Message">
+    <button type="submit">Send</button>
+</form>
+
+@* <form id="messageForm" method="post">
+<input type="hidden" id="ReceiverId" name="ReceiverId" asp-for="Reciever" value="@Model.Reciever" />
+<input asp-for="Message" id="Text">
+<button type="submit">Send</button>
+</form> *@
+
+<div>
+
+    @* display the messages *@
+    @foreach (var message in @Model.Messages)
+    {
+        @if (message.SenderId == @Model.User.Id)
+        {
+
+            <li style="background-color: red; color:white;">@message.Message</li>
+        }
+        else
+        {
+            <li style="background-color: blue; color:white;">@message.Message</li>
+        }
+    }
+    <ul id="chat">
+    </ul>
+    
+</div>
+
+
+
+
+
+
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.9/signalr.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        
+    })
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chatHub")
+        .build();
+
+    connection.on("ReceiveMessage", (fromId, message) => {
+        // Handle received message
+        @* var fromid = fromId *@
+        @* var fromUser = @getUserNameFromId(fromId) *@
+        
+        console.log(message)
+        var messagesList = document.getElementById("chat");
+        var listItem = document.createElement("li");
+        listItem.textContent = fromId + ": " + message;
+        messagesList.appendChild(listItem);
+    });
+
+    connection.start().then(() => {
+        // Connection established
+    }).catch(err => {
+        console.error(err.toString());
+    });
+
+    // Send a message
+    function sendMessage(toId, fromId, message) {
+        connection.invoke("SendMessage", toId, fromId, message).catch(err => {
+            console.error(err.toString());
+        });
+    }
+
+</script>
