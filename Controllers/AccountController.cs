@@ -96,7 +96,9 @@ namespace RentSpace.Controllers
             var newUser = new AppUser()
             {
                 Email = registerViewModel.EmailAddress,
-                UserName = registerViewModel.EmailAddress
+                UserName = registerViewModel.EmailAddress,
+                FirstName = registerViewModel.FirstName,
+                LastName    = registerViewModel.LastName
             };
 
             // save it to the database

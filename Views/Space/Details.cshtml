@@ -1,28 +1,110 @@
 @model Space
 
-<div class="container">
-  
-    <h1 class="my-3">@Model.Title</h1>
+@* <div class="container">
 
-    <h4>By <a asp-area="" asp-controller="UserProfile" asp-action="Index"asp-route-id="@Model.AppUserId">@Model.AppUser.UserName </a></h4>
+<h1 class="my-3">@Model.Title</h1>
 
-  <div class="row">
-    <div class="col-md-8">
-      <img src="@Model.Image" alt="" class="img-fluid">
-    </div>
+<h4>By <a asp-area="" asp-controller="UserProfile"
+asp-action="Index"asp-route-id="@Model.AppUserId">@Model.AppUser.UserName </a></h4>
 
-    <div class="col-md-4">
-      <p>@Model.Description</p>
-      <h3 class="my-3">Location</h3>
-
-      <ul>
-        <li>@Model.InitialPrice</li>
-        <li>@Model.Country</li>
-        <li>@Model.State</li>
-        <li>@Model.City</li>
-        <li>@Model.SpaceCategory</li>
-      </ul>
-
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-8">
+<img src="@Model.Image" alt="" class="img-fluid">
 </div>
+
+<div class="col-md-4">
+<p>@Model.Description</p>
+<h3 class="my-3">Location</h3>
+
+<ul>
+<li>@Model.InitialPrice</li>
+<li>@Model.Country</li>
+<li>@Model.State</li>
+<li>@Model.City</li>
+<li>@Model.SpaceCategory</li>
+</ul>
+
+</div>
+</div>
+</div> *@
+<link href="https://unpkg.com/tailwindcss@@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+
+<main class="flex flex-col gap-6 px-4 md:px-6 py-6">
+  <header class="relative h-64 w-full rounded-lg overflow-hidden">
+    <img src="@Model.Image" alt="@Model.Title" width="1000" height="500"
+      class="absolute inset-0 object-cover w-full h-full" style="aspect-ratio: 1000 / 500; object-fit: cover;">
+    <div class="absolute inset-0 bg-black/40 flex items-end p-4">
+      <h1 class="text-3xl font-bold text-white">@Model.Title</h1>
+    </div>
+  </header>
+  <section class="grid gap-4">
+    <h2 class="text-2xl font-bold">About this place</h2>
+    <p class="text-gray-500 dark:text-gray-400">
+      @Model.Description
+    </p>
+    <div class="grid gap-2 md:grid-cols-2">
+      <div>
+        <h3 class="font-semibold">Address</h3>
+        <p class="text-gray-500 dark:text-gray-400">
+          123 Main St, Anytown, CA 12345
+          @* TODO: You need to add the street *@
+          @Model.State, @Model.City
+        </p>
+      </div>
+      <div>
+        <h3 class="font-semibold">Contact</h3>
+        <p class="text-gray-500 dark:text-gray-400">
+          <a type="button" class="btn btn-primary" asp-area="" asp-controller="Chat" asp-action="PrivateChat"
+            asp-route-id="@Model.AppUserId">Send Message</a>
+          <a href="#" class="btn btn-primary">Add to favorite</a>
+        </p>
+      </div>
+      <div>
+        <h3 class="font-semibold">Initial Price</h3>
+        <p class="text-gray-500 dark:text-gray-400">
+          @Model.InitialPrice.ToString("c")
+        </p>
+      </div>
+      <div>
+        <h3 class="font-semibold">Opening Hours</h3>
+        <p class="text-gray-500 dark:text-gray-400">
+          Mon - Fri: 9:00 AM - 5:00 PM
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="grid gap-4">
+    <h2 class="text-2xl font-bold">Owner</h2>
+    <div class="grid gap-6">
+      <div class="flex gap-4"><span class="relative flex shrink-0 overflow-hidden rounded-full w-10 h-10 border"><span
+            class="flex h-full w-full items-center justify-center rounded-full bg-muted">@Model.AppUser.UserName[0]</span></span>
+        <div class="grid gap-4">
+          <div class="flex gap-4 items-start">
+            <div class="grid gap-0.5 text-sm">
+              <a asp-area="" asp-controller="UserProfile" asp-action="Index" asp-route-id="@Model.AppUserId">
+                <h3 class="font-semibold">@Model.AppUser.UserName</h3>
+              </a>
+              @* <time class="text-sm text-gray-500 dark:text-gray-400">2 days ago</time> *@
+              <time class="text-sm text-gray-500 dark:text-gray-400">@Model.CreateAt</time>
+            </div>
+          </div>
+          <div class="text-sm leading-loose text-gray-500 dark:text-gray-400">
+            @* <p>
+            This place is amazing! I had a great time visiting and exploring
+            the area. The staff was friendly and helpful. I highly recommend
+            this place to anyone looking for a fun and relaxing getaway.
+            </p> *@
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  @* TODO: Add location *@
+  <section class="grid gap-4">
+    <h2 class="text-2xl font-bold">Location</h2>
+    <div class="w-full h-64 rounded-lg overflow-hidden"><img src="/placeholder.svg" alt="Map" width="1000" height="500"
+        class="object-cover w-full h-full" style="aspect-ratio: 1000 / 500; object-fit: cover;"></div>
+  </section>
+</main>

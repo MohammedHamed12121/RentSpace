@@ -1,100 +1,161 @@
-@{
-    Layout = "_WelcomeLayout";
-}
-
-<style>
-
-    section{
-        color: black;
-        margin: 30px;
-        font-size: 1.5rem;
-        background-color: rgba(255, 255, 255, .85);
-    }
-    .signupnow{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .signupnow ul{
-        padding-left: 30px;
-    }
-
-    .signupnow span{
-        margin-right: 90px;
-        padding: 30px;
-        background-color: #28a745;
-        border-radius: 3px;
-
-    }
-    .signupnow span a{
-        color: white;
-    }
-    .signupnow span:hover {
-        background-color: #1e7030;
-    }
-</style>
+@* @{
+Layout=null;
+} *@
+@model RegisterViewModel
+<link href="https://unpkg.com/tailwindcss@@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
 
-<!-- Welcome Page -->
-@* <div class="container"> *@
 
-    @* <div class="row"> *@
-        @* <section id="home"> *@
-<div>
-
-        <section>
-            <h1>Welcome to RentSpace - Your Ultimate Property Marketplace</h1>
-            <p>
-                <strong>Rent or Sell Your Property Hassle-Free!</strong><br>
-                Explore a seamless experience of renting or selling your house,land, or space with RentSpace. <br>
-                Whether it's for a few hours, months, or even a year, we've got you covered.
-            </p>
-            <div class="signupnow">
-            <ul>
-                <li>Flexible Rental Options</li>
-                <li>Easy and Secure Transactions</li>
-                <li>Wide Range of Properties</li>
-                <li>User-Friendly Platform</li>
-            </ul>
-            <span>
-                <a asp-area="" asp-controller="Account" asp-action="Register" >
-
-                SIGN UP NOW
-                </a>
-            </span>
-
+<div class="flex flex-col min-h-screen">
+    <main class="flex-1">
+        <section class="w-full py-12 md:py-24 lg:py-32">
+            <div class="container px-2 md:px-6">
+                <div class="flex gap-4 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+                    <img src="~/images/pexels-pixabay-53610.jpg" width="550" height="550" alt="Hero"
+                        class="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square">
+                    <div class="flex flex-col justify-center space-y-4">
+                        <div class="space-y-2">
+                            <h1 class="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                                Welcome to RentSpace  Your Ultimate Property Marketplace
+                            </h1>
+                            <p class="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+                                <strong>Rent or Sell Your Property Hassle-Free!</strong><br>
+                                Explore a seamless experience of renting or selling your house,land, or space with
+                                RentSpace. <br>
+                                Whether it's for a few hours, months, or even a year, we've got you covered.
+                            </p>
+                        </div>
+                        <div class="flex flex-col gap-2 min-[400px]:flex-row">
+                            <a class="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                                href="#">
+                                Join Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-    @* </div> *@
-    @* <div class="row"> *@
 
-        <!-- Card for the Service -->
-        <section >
-            <h2>Rent or Sell Your Property with Ease!</h2>
-            <ul>
-                <li>🏡 Flexible Options: Rent by hours, months, or even a year.</li>
-                <li>💼 Sell Your Property: Find the perfect buyer for your space.</li>
-                <li>🌐 Explore a Wide Range: From cozy homes to spacious lands.</li>
-            </ul>
+        <section class="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
+            <div class="container px-4 md:px-6">
+                <div class="flex flex-col items-center justify-center space-y-4 text-center">
+                    <div class="space-y-2">
+                        <div class="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
+                            Featured
+                        </div>
+                        <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
+                            Rent or Sell Your Property with Ease!
+                        </h2>
+                        <p
+                            class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+
+                            At RentSpace, we understand that finding the right place or selling your property can be a
+                            significant
+                            decision.
+                            Our mission is to simplify this process, making it easy and efficient for property owners
+                            and renters
+                            alike.
+                        </p>
+                    </div>
+                </div>
+                <div class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+                    <img src="~/images/pexels-pixabay-164558.jpg" width="550" height="310" alt="Image"
+                        class="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last">
+                    <div class="flex flex-col justify-center space-y-4">
+                        <ul class="grid gap-6">
+                            <li>
+                                <div class="grid gap-1">
+                                    <h3 class="text-xl font-bold">🏡 Flexible Options: Rent by hours, months, or even a
+                                        year.</h3>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="grid gap-1">
+                                    <h3 class="text-xl font-bold">💼 Sell Your Property: Find the perfect buyer for your
+                                        space.</h3>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="grid gap-1">
+                                    <h3 class="text-xl font-bold">🌐 Explore a Wide Range: From cozy homes to spacious
+                                        lands.</h3>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- About Us -->
-        <section>
-            <h2>About RentSpace</h2>
-            <p>
-                At RentSpace, we understand that finding the right place or selling your property can be a significant
-                decision.
-                Our mission is to simplify this process, making it easy and efficient for property owners and renters
-                alike.
-            </p>
-            <ul>
-                <li><strong>Flexibility:</strong> Rent or sell on your terms - by hours, months, or a year.</li>
-                <li><strong>Diverse Listings:</strong> From cozy apartments to vast lands, find the perfect match.</li>
-                <li><strong>Security:</strong> Our platform ensures secure transactions for peace of mind.</li>
-                <li><strong>User-Friendly:</strong> Navigate our platform with ease, making the process hassle-free.
-                </li>
-            </ul>
+        <section class="w-full py-12 md:py-24 lg:py-32 border-t">
+            <div class="container px-4 md:px-6">
+                <div class="grid gap-10 sm:px-10 md:gap-16 md:grid-cols-2">
+                    <div class="space-y-4">
+                        <h2
+                            class="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
+                            Ready to start your journey?
+                        </h2>
+                    </div>
+                    <div class="flex flex-col items-start space-y-4">
+                        <div class="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
+                            Sign Up
+                        </div>
+                        <p class="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed dark:text-gray-400">
+                        </p>
+                        
+
+                        <form asp-controller="Account" asp-action="Register" method="post" class="space-y-4">
+                        <div asp-validation-summary="ModelOnly" class="flex flex-col space-y-4"></div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                   asp-for="FirstName" ></label>
+                                <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    asp-for="FirstName" placeholder="Enter your first name">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none  peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    asp-for="LastName"></label>
+                                <input
+                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    asp-for="LastName"></div>
+                        </div>
+                        <div class="space-y-2">
+                            
+                            <label
+                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                asp-for="EmailAddress"></label><input
+                                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                asp-for="EmailAddress">
+                                <span asp-validation-for="EmailAddress"></span>
+                        </div>
+                        <div class="space-y-2">
+                            <label
+                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                asp-for="Password"></label><input
+                                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                asp-for="Password">
+                                <span asp-validation-for="Password"></span>
+                        </div>
+                        <div class="space-y-2">
+                            <label asp-for="ConfirmPassword"
+                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                ></label>
+                                <input
+                                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                asp-for="ConfirmPassword">
+                                <span asp-validation-for="ConfirmPassword"></span>
+                        </div>
+                        
+                        <button type="submit"
+                            class="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
+                            Sign Up
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
-    @* </div> *@
-@* </div> *@
+    </main>
 </div>
+
