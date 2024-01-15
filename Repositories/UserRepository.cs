@@ -30,6 +30,18 @@ namespace RentSpace.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<AppUser> GetAllFavoriteAsync(string userId)
+        {
+            return await _context.Users
+                                .Where(u => u.Id == userId)
+                                .FirstOrDefaultAsync();
+                                // .Include(u => u.Favorite);
+                                
+                                // .FirstOrDefaultAsync()
+                                // .Include(u => u.Favorite)
+                                // .ThenInclude(f => f.Post)
+        }
+
         public async Task<IEnumerable<AppUser>> GetAllUsers()
         {
             return await _context.Users.ToListAsync();

@@ -21,13 +21,13 @@ namespace RentSpace.Repositories
         }
         public bool Add(Space space)
         {
-            _context.Add(space);
+            _context.Spaces.Add(space);
             return Save();
         }
 
         public bool Delete(Space space)
         {
-            _context.Remove(space);
+            _context.Spaces.Remove(space);
             return Save();
         }
 
@@ -86,7 +86,7 @@ namespace RentSpace.Repositories
 
         public bool Update(Space space)
         {
-            _context.Update(space);
+            _context.Spaces.Update(space);
             return Save();
         }
     }

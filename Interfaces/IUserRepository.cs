@@ -11,6 +11,7 @@ namespace RentSpace.Interfaces
         Task<IEnumerable<AppUser>> GetAllUsers();
         Task<AppUser> GetUserByIdAsync(string id);
         Task<AppUser> GetUserByIdAsyncWithNoTracking(string id);
+        Task<AppUser> GetAllFavoriteAsync(string userId);
         bool Add(AppUser user);
         bool Update(AppUser user);
         bool Delete(AppUser user);

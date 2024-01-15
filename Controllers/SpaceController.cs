@@ -165,18 +165,18 @@ namespace RentSpace.Controllers
                 // TODO: problem with edit
                 var space = new Space
                 {
-                    Id = spaceViewModel.Id,
-                    AppUserId = spaceViewModel.AppUserId,
-                    Title = spaceViewModel.Title,
-                    ShortDescription = spaceViewModel.ShortDescription,
-                    Description = spaceViewModel.Description,
-                    Image = spaceViewModel.Image,
-                    InitialPrice = spaceViewModel.InitialPrice,
-                    SpaceCategory = spaceViewModel.SpaceCategory,
-                    Country = spaceViewModel.Country,
-                    City = spaceViewModel.City,
-                    State = spaceViewModel.State,
-                    CreateAt = new DateTime()
+                    Id                      = spaceViewModel.Id,
+                    AppUserId               = spaceViewModel.AppUserId,
+                    Title                   = spaceViewModel.Title,
+                    ShortDescription        = spaceViewModel.ShortDescription,
+                    Description             = spaceViewModel.Description,
+                    Image                   = spaceViewModel.Image,
+                    InitialPrice            = spaceViewModel.InitialPrice,
+                    SpaceCategory           = spaceViewModel.SpaceCategory,
+                    Country                 = spaceViewModel.Country,
+                    City                    = spaceViewModel.City,
+                    State                   = spaceViewModel.State,
+                    CreateAt                = new DateTime()
                 };
 
                 _spaceRepo.Update(space);
@@ -213,6 +213,16 @@ namespace RentSpace.Controllers
             _spaceRepo.Delete(spaceDetails);
             // redirct to the index
             return RedirectToAction("Index");
+        }
+        #endregion
+
+
+        #region Favorite
+        [HttpPost]
+        public IActionResult Favorite(string id)
+        {
+            
+            return View();
         }
         #endregion
 

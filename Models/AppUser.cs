@@ -15,5 +15,8 @@ namespace RentSpace.Models
         public string? State { get; set; }
         public string? Country { get; set; }
         public ICollection<Space>? Space { get; set; }
+        public string? FavoriteId { get; set; }
+        public ICollection<Favorite>? Favorite { get; set; }
+
     }
 }

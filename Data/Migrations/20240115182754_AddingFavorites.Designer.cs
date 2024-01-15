@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentSpace.Data;
 
@@ -11,9 +12,11 @@ using RentSpace.Data;
 namespace RentSpace.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240115182754_AddingFavorites")]
+    partial class AddingFavorites
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,7 +184,7 @@ namespace RentSpace.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FavoriteId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -230,6 +233,8 @@ namespace RentSpace.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FavoriteId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -269,17 +274,7 @@ namespace RentSpace.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("SpaceId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("SpaceId");
 
                     b.ToTable("Favorites");
                 });
@@ -311,6 +306,9 @@ namespace RentSpace.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FavoriteId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -335,6 +333,8 @@ namespace RentSpace.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("FavoriteId");
 
                     b.ToTable("Spaces");
                 });
@@ -390,19 +390,13 @@ namespace RentSpace.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RentSpace.Models.Favorite", b =>
+            modelBuilder.Entity("RentSpace.Models.AppUser", b =>
                 {
-                    b.HasOne("RentSpace.Models.AppUser", null)
-                        .WithMany("Favorite")
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("RentSpace.Models.Space", "Space")
+                    b.HasOne("RentSpace.Models.Favorite", "Favorite")
                         .WithMany()
-                        .HasForeignKey("SpaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FavoriteId");
 
-                    b.Navigation("Space");
+                    b.Navigation("Favorite");
                 });
 
             modelBuilder.Entity("RentSpace.Models.Space", b =>
@@ -411,13 +405,20 @@ namespace RentSpace.Data.Migrations
                         .WithMany("Space")
                         .HasForeignKey("AppUserId");
 
+                    b.HasOne("RentSpace.Models.Favorite", null)
+                        .WithMany("Space")
+                        .HasForeignKey("FavoriteId");
+
                     b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("RentSpace.Models.AppUser", b =>
                 {
-                    b.Navigation("Favorite");
+                    b.Navigation("Space");
+                });
 
+            modelBuilder.Entity("RentSpace.Models.Favorite", b =>
+                {
                     b.Navigation("Space");
                 });
 #pragma warning restore 612, 618

@@ -1,6 +1,5 @@
 # RentSpace
 
-![website image](RentSpace.PNG)
 
 **House renting with social media capability**
 - a simple website for houses sellers and renters where you can rent you place by hour, month, year or even sell it.

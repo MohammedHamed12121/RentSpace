@@ -17,5 +17,6 @@ namespace RentSpace.Data
         }
         public DbSet<Space> Spaces { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
     }
 }

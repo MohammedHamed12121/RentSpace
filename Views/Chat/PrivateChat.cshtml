@@ -2,32 +2,32 @@
 @* @inject UserManager<IdentityUser> UserManager *@
 
 @* @{
-    async Task<string> getUserNameFromId(string id)
-    {
-        IdentityUser user = await UserManager.FindByIdAsync(id);
-        string? username = user!.UserName ?? user!.Email;
-        return username;
-    }
+async Task<string> getUserNameFromId(string id)
+{
+IdentityUser user = await UserManager.FindByIdAsync(id);
+string? username = user!.UserName ?? user!.Email;
+return username;
+}
 } *@
 
-<h1>this is a private chat between</h1>
-<p>
+@* <h1>this is a private chat between</h1> *@
+@* <p> *@
     @* get the current user name *@
-    @User.Identity!.Name
+    @* @User.Identity!.Name *@
 
-    ------>>>
+@* ?    ------>>> *@
 
     @* get the reciever name *@
-    @Model.User.Email
-</p>
+    @* @Model.User.Email
+</p> *@
 
 @* form to send messeges *@
 @* TODO: replace this with ajax *@
-<form asp-controller="Chat" asp-action="PrivateChat" method="Post">
+@* <form asp-controller="Chat" asp-action="PrivateChat" method="Post">
     <input type="hidden" id="ReceiverId" name="ReceiverId" asp-for="Reciever" value="@Model.Reciever" />
     <input asp-for="Message">
     <button type="submit">Send</button>
-</form>
+</form> *@
 
 @* <form id="messageForm" method="post">
 <input type="hidden" id="ReceiverId" name="ReceiverId" asp-for="Reciever" value="@Model.Reciever" />
@@ -38,22 +38,138 @@
 <div>
 
     @* display the messages *@
-    @foreach (var message in @Model.Messages)
+    @* @foreach (var message in @Model.Messages)
     {
-        @if (message.SenderId == @Model.User.Id)
-        {
+    @if (message.SenderId == @Model.User.Id)
+    {
 
-            <li style="background-color: red; color:white;">@message.Message</li>
-        }
-        else
-        {
-            <li style="background-color: blue; color:white;">@message.Message</li>
-        }
+    <li style="background-color: red; color:white;">@message.Message</li>
     }
+    else
+    {
+    <li style="background-color: blue; color:white;">@message.Message</li>
+    }
+    } *@
     <ul id="chat">
     </ul>
-    
+
 </div>
+
+
+
+
+<style>
+
+    #chat-container {
+        max-width: 1000px;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        max-height: 100%;
+    }
+
+    #chat-header {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    #chat-messages {
+        padding: 10px;
+        overflow-y: auto;
+        @* max-height: 300px; *@
+    }
+
+    .message {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 8px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+
+    .message.sent {
+        background-color: #ddd;
+        color: #333;
+        text-align: right;
+    }
+
+    .message.received {
+        background-color: #fff;
+        color: #333;
+    }
+
+    #input-container {
+        border-top: 1px solid #ccc;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    #message-input {
+        flex: 1;
+        width: 900px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        @* margin-right: 1px; *@
+    }
+
+    #send-button {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+
+
+<div id="chat-container">
+    <div id="chat-header">@Model.User.Email</div>
+    <div id="chat-messages">
+        @foreach (var message in @Model.Messages)
+        {
+            @if (message.SenderId == @Model.User.Id)
+            {
+
+                @* <li style="background-color: red; color:white;">@message.Message</li> *@
+                <div class="message received">@message.Message</div>
+            }
+            else
+            {
+                @* <li style="background-color: blue; color:white;">@message.Message</li> *@
+                <div class="message sent">@message.Message</div>
+            }
+        }
+        @* <div class="message received">Hello! How are you?</div> *@
+        @* <div class="message sent">Hi! I'm good, thank you.</div> *@
+        <!-- Add more messages here -->
+        <ul id="chat">
+        </ul>
+    </div>
+    <div id="input-container">
+        @* <input type="text" id="message-input" placeholder="Type your message..."> *@
+        @* <button id="send-button">Send</button> *@
+
+        <form asp-controller="Chat" asp-action="PrivateChat" method="Post">
+            <input type="hidden" id="ReceiverId" name="ReceiverId" asp-for="Reciever" value="@Model.Reciever" />
+            <input id="message-input" asp-for="Message">
+            <button id="send-button" type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
 
 
 
@@ -66,8 +182,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.9/signalr.min.js"></script>
 
 <script>
-    $(document).ready(function(){
-        
+    $(document).ready(function () {
+
     })
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/chatHub")
@@ -75,10 +191,10 @@
 
     connection.on("ReceiveMessage", (fromId, message) => {
         // Handle received message
-        @* var fromid = fromId *@
-        @* var fromUser = @getUserNameFromId(fromId) *@
-        
-        console.log(message)
+    @* var fromid = fromId *@
+    @* var fromUser = @getUserNameFromId(fromId) *@
+
+            console.log(message)
         var messagesList = document.getElementById("chat");
         var listItem = document.createElement("li");
         listItem.textContent = fromId + ": " + message;
