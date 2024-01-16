@@ -58,12 +58,17 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile"
+                                    asp-action="Favorites">your fav</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile"
                                     asp-action="Index" asp-route-id="@User.GetUserId()  ">@User.Identity!.Name</a>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#myModal">Logout</button>
                             </li>
+                            
                         }
                     </ul>
                 </div>

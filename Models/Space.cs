@@ -30,5 +30,6 @@ namespace RentSpace.Models
         [ForeignKey("AppUser")]
         public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
+        public virtual ICollection<Favorite>? Favorites { get; set; }
     }
 }

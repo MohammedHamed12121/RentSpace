@@ -18,21 +18,36 @@ namespace RentSpace.Repositories
             _context = context;
         }
 
-        public bool AddFavorite(Favorite favorite)
+        public bool Add(Favorite favorite)
         {
             _context.Favorites.Add(favorite);
             return Save();
         }
 
-        public bool DeleteFavorite(Favorite favorite)
+        public bool Delete(Favorite favorite)
         {
             _context.Favorites.Remove(favorite);
             return Save();
         }
 
+        public bool FavoriteExists(string userId, int spaceId)
+        {
+            return _context.Favorites.Any(f => f.UserId == userId && f.SpaceId == spaceId);
+        }
+
+        public async Task<List<Favorite>> GetUserFavoritesAsync(string userId)
+        {
+            return await _context.Favorites
+                            .Include(f => f.Space)
+                            .Where(f => f.UserId == userId)
+                            .ToListAsync();
+
+        }
+
         public bool Save()
         {
-            throw new NotImplementedException();
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
     }
 }

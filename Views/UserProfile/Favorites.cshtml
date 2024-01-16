@@ -1,0 +1,12 @@
+@model List<Favorite>
+
+<h1>this is the favorite </h1>
+<div class="container">
+    <div class="row">
+        @foreach (var favorite in Model)
+        {
+            <partial name="_CardPartial" model="@favorite.Space" />
+        }
+
+    </div>
+</div>

@@ -8,8 +8,10 @@ namespace RentSpace.Interfaces
 {
     public interface IFavoriteRepository
     {
-        bool AddFavorite(Favorite favorite);
-        bool DeleteFavorite(Favorite favorite);
+        Task<List<Favorite>> GetUserFavoritesAsync(string userId);
+        bool Add(Favorite favorite);
+        bool FavoriteExists(string userId, int spaceId);
+        bool Delete(Favorite favorite);
         bool Save();
     }
 }

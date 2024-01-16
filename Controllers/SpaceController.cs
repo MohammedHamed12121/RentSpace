@@ -22,13 +22,15 @@ namespace RentSpace.Controllers
         #region Constructor
         private readonly ILogger<SpaceController> _logger;
         private readonly ISpaceRepository _spaceRepo;
+        private readonly IFavoriteRepository _favoriteRepo;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public SpaceController(ILogger<SpaceController> logger, ISpaceRepository spaceRepository, IHttpContextAccessor httpContextAccessor)
+        public SpaceController(ILogger<SpaceController> logger, ISpaceRepository spaceRepository, IHttpContextAccessor httpContextAccessor, IFavoriteRepository favoriteRepo)
         {
             _logger = logger;
             _spaceRepo = spaceRepository;
             _httpContextAccessor = httpContextAccessor;
+            _favoriteRepo = favoriteRepo;
         }
         #endregion
 
@@ -165,18 +167,18 @@ namespace RentSpace.Controllers
                 // TODO: problem with edit
                 var space = new Space
                 {
-                    Id                      = spaceViewModel.Id,
-                    AppUserId               = spaceViewModel.AppUserId,
-                    Title                   = spaceViewModel.Title,
-                    ShortDescription        = spaceViewModel.ShortDescription,
-                    Description             = spaceViewModel.Description,
-                    Image                   = spaceViewModel.Image,
-                    InitialPrice            = spaceViewModel.InitialPrice,
-                    SpaceCategory           = spaceViewModel.SpaceCategory,
-                    Country                 = spaceViewModel.Country,
-                    City                    = spaceViewModel.City,
-                    State                   = spaceViewModel.State,
-                    CreateAt                = new DateTime()
+                    Id = spaceViewModel.Id,
+                    AppUserId = spaceViewModel.AppUserId,
+                    Title = spaceViewModel.Title,
+                    ShortDescription = spaceViewModel.ShortDescription,
+                    Description = spaceViewModel.Description,
+                    Image = spaceViewModel.Image,
+                    InitialPrice = spaceViewModel.InitialPrice,
+                    SpaceCategory = spaceViewModel.SpaceCategory,
+                    Country = spaceViewModel.Country,
+                    City = spaceViewModel.City,
+                    State = spaceViewModel.State,
+                    CreateAt = new DateTime()
                 };
 
                 _spaceRepo.Update(space);
@@ -219,10 +221,25 @@ namespace RentSpace.Controllers
 
         #region Favorite
         [HttpPost]
-        public IActionResult Favorite(string id)
+        public IActionResult MarkAsFavorite(int spaceId)
         {
+            string userId = _httpContextAccessor.HttpContext.User.GetUserId();
+            var favorite = new Favorite
+            {
+                UserId = userId,
+                SpaceId = spaceId
+            };
+
+            if (!_favoriteRepo.FavoriteExists(userId, spaceId))
+            {
+                _favoriteRepo.Add(favorite);
+            }
+            else
+            {
+                _favoriteRepo.Delete(favorite);
+            }
             
-            return View();
+            return RedirectToAction("Details", new { id = spaceId });
         }
         #endregion
 

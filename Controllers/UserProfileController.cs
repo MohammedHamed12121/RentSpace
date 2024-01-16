@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,15 +22,17 @@ namespace RentSpace.Controllers
         private readonly ILogger<UserProfileController> _logger;
         private readonly IProfileRepository _profileRepo;
         private readonly IUserRepository _userRepo;
+        private readonly IFavoriteRepository _favoriteRepo;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-        public UserProfileController(ILogger<UserProfileController> logger, IProfileRepository profileRepo, IHttpContextAccessor httpContextAccessor, IUserRepository userRepo)
+        public UserProfileController(ILogger<UserProfileController> logger, IProfileRepository profileRepo, IHttpContextAccessor httpContextAccessor, IUserRepository userRepo, IFavoriteRepository favoriteRepo)
         {
             _logger = logger;
             _profileRepo = profileRepo;
             _httpContextAccessor = httpContextAccessor;
             _userRepo = userRepo;
+            _favoriteRepo = favoriteRepo;
         }
         #endregion
 
@@ -124,6 +127,18 @@ namespace RentSpace.Controllers
                 ModelState.AddModelError("", "Falied to edit profile");
                 return View("EditUserProfile", editProfileVM);
             }
+        }
+        #endregion
+
+        #region GetFavoriteSpaces
+
+        public async Task<IActionResult> Favorites()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var favorites =await _favoriteRepo.GetUserFavoritesAsync(userId);
+            
+            return View(favorites);
         }
         #endregion
 

@@ -30,7 +30,13 @@
         <p class="text-gray-500 dark:text-gray-400">
           <a type="button" class="btn btn-primary" asp-area="" asp-controller="Chat" asp-action="PrivateChat"
             asp-route-id="@Model.AppUserId">Send Message</a>
-          <a href="#" class="btn btn-primary">Add to favorite</a>
+          @if (User.Identity.IsAuthenticated)
+          {
+          <form style="display:inline;" asp-controller="Space" asp-action="MarkAsFavorite" asp-route-spaceId="@Model.Id" method="post">
+            @* <input type="hidden" value="@Model.Id" name="Id" id="Id"> *@
+            <button class="btn btn-primary" type="submit">Mark as Favorite</button>
+          </form>
+          }
         </p>
       </div>
       <div>
