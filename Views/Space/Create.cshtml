@@ -1,6 +1,8 @@
 @model CreateAndEditSpaceViewModel
-
-<div class="container mt-5">
+@{
+    Layout="_UserProfileLayout";
+}
+<div class="container">
     <form asp-action="Create" method="post">
     <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId" />
 

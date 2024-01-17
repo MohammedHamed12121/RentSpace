@@ -1,4 +1,7 @@
 @model EditUserProfileViewModel
+@{
+    Layout="_UserProfileLayout";
+}
 
 <form asp-controller="UserProfile" asp-action="EditUserProfile" method="post">
     <input type="hidden" value="@Model.Id" name="Id" id="Id" asp-for="Id">

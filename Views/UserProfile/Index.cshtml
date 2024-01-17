@@ -1,21 +1,25 @@
 @model ProfileViewModel
-
+@{
+    Layout = "_UserProfileLayout";
+}
 
 @* TODO: add the profile image *@
 
 <h1 class="display-4 fw-normal">@Model.Space!.First().AppUser!.UserName</h1>
 <h4>@Model.City -@Model.State -@Model.Country </h4>
-@if(User.GetUserId() == @Model.Space!.First().AppUserId)
+@* @if (User.GetUserId() == @Model.Space!.First().AppUserId)
 {
-    <a type="button" class="btn btn-primary" asp-area="" asp-controller="Space" asp-action="Create">Publish new space</a> 
-    <a type="button" class="btn btn-primary" asp-area="" asp-controller="UserProfile" asp-action="EditUserProfile">Edit User Profile</a>
+    <a type="button" class="btn btn-primary" asp-area="" asp-controller="Space" asp-action="Create">Publish new
+        space</a>
+    <a type="button" class="btn btn-primary" asp-area="" asp-controller="UserProfile" asp-action="EditUserProfile">Edit User
+        Profile</a>
 }
 else
 {
-    @* <a type="button" class="btn btn-primary" asp-area="" asp-controller="Space" asp-action="Create">Follow</a>  *@
-    <a type="button" class="btn btn-primary" asp-area="" asp-controller="Chat" asp-action="PrivateChat" asp-route-id="@Model.Space!.First().AppUserId">Send Message</a> 
-}
- <div class="album py-5 bg-light">
+    <a type="button" class="btn btn-primary" asp-area="" asp-controller="Chat" asp-action="PrivateChat"
+        asp-route-id="@Model.Space!.First().AppUserId">Send Message</a>
+} *@
+<div class="album py-5 bg-light">
     <div class="container">
         <h2 class="display-4 fw-normal">Your Spaces</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -25,9 +29,7 @@ else
                 <partial name="_CardPartial" model="@item" />
             }
         </div>
-        
+
 
     </div>
 </div>
-
-

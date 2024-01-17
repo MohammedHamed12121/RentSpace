@@ -1,0 +1,171 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RentSpace</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RentSpace.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Welcome" asp-action="Index">RentSpace</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Space"
+                                asp-action="Index">Spaces</a>
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (User.Identity!.IsAuthenticated)
+                        {
+
+                            <a asp-area="" asp-controller="UserProfile" asp-action="Index" asp-route-id="@User.GetUserId()"
+                                class="d-flex align-items-center link-dark text-decoration-none">
+                                <img src="http://placekitten.com/200/300" alt="" width="32" height="32"
+                                    class="rounded-circle me-2">
+                                <strong>@User.Identity!.Name</strong>
+                            </a>
+                            <li class="nav-item">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#myModal">Logout</button>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-3">
+
+
+                <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+                    <a asp-area="" asp-controller="UserProfile" asp-action="Index"
+                                asp-route-id="@User.GetUserId()"
+                        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32">
+                            <use xlink:href="#bootstrap"></use>
+                        </svg>
+                        <span class="fs-4">Your Profile</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="UserProfile" asp-action="Index"
+                                asp-route-id="@User.GetUserId()" class="nav-link active" aria-current="page">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#home"></use>
+                                </svg>
+                                Your Profile 
+                            </a>
+                        </li>
+                        <li>
+                        <a  asp-area="" asp-controller="Space"
+                            asp-action="Create" class="nav-link link-dark"
+                            >
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#speedometer2"></use>
+                                </svg>
+                            Publish new space
+                        </a>
+                        </li>
+                        <li>
+                        <a type="button" asp-area="" asp-controller="UserProfile"
+                            asp-action="EditUserProfile" class="nav-link link-dark">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#speedometer2"></use>
+                                </svg>
+                            Edit Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-dark" asp-area="" asp-controller="UserProfile"
+                                asp-action="Favorites">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#speedometer2"></use>
+                                </svg>
+                                your fav
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link link-dark">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#speedometer2"></use>
+                                </svg>
+                                Chats
+                            </a>
+                        </li>
+                    </ul>
+                    
+
+                </div>
+
+            </div>
+
+
+
+            <div class="modal" id="myModal">
+                <form asp-controller="Account" asp-action="Logout" method="get">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Logout</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                                <p>You really want to logout</p>
+                            </div>
+
+                            <!-- Modal Footer -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Logout</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="col-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
